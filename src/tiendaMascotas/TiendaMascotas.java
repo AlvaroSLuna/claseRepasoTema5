@@ -1,14 +1,39 @@
 package tiendaMascotas;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TiendaMascotas {
+    Mascota[] inventario;
+    int cantidadMascotas;
 
-    public static String TipoAnimal;
-    public static String Nombre;
-    public static int Edad;
-public class mascotas {
-
+    public TiendaMascotas(int i){
+        this.inventario = new Mascota[100];
+        this.cantidadMascotas=0;
+    }
+    public void agregarMascota (String nombre, int edad, String tipoAnimal){
+        Mascota mascota = new Mascota(nombre, edad, tipoAnimal);
+        inventario[cantidadMascotas]=mascota;
+        cantidadMascotas++;
+        System.out.println("La mascota " + nombre + " se ha añadido correctamente.");
     }
 
+    public boolean venderMascota(String nombre){
+        for (int i = 0; i < cantidadMascotas; i++) {
+            if (inventario[i].getNombre().equals(nombre)){
+                System.out.println("La mascota "+ inventario[i].getNombre()+" se ha vendido");
+                inventario[i]=null;
+                for (int j = i; j < cantidadMascotas; j++) {
+                    inventario[j]=inventario[j+1];
+                }
+                cantidadMascotas--;
+                return false;
+            }
+            System.out.println("La mascota con nombre " + nombre+ " no se encuentra");
+        }
+        return false;
+    }
+    public void mostrarInventario(){
+        System.out.println("El inventario es: ");
+        for (int i = 0; i < cantidadMascotas; i++) {
+            System.out.println("Nombre: " + inventario[i].getNombre());
+        }
+    }
 }
